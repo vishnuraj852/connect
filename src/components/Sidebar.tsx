@@ -7,6 +7,7 @@ import { db, auth } from '../firebase';
 import { useAuthStore } from '../store/useAuthStore';
 import { useThemeStore } from '../store/useThemeStore';
 import AddFriendModal from './AddFriendModal';
+import { sendNotification } from '../utils/notifications';
 
 // Small styled dot for avatar badge
 import { styled } from '@mui/material/styles';
@@ -78,8 +79,8 @@ export default function Sidebar({ onSelectChat, selectedChatId }: { onSelectChat
             for (const chatId in newUnreads) {
                 if (chatId !== selectedChatRef.current && newUnreads[chatId] > (prev[chatId] || 0)) {
                     import('../audioEffects').then(m => m.toneGenerator.playMessageNotification());
-                    if (document.hidden && 'Notification' in window && window.Notification.permission === 'granted') {
-                        new window.Notification('New Message', { body: 'You have new messages waiting.' });
+                    if (document.hidden) {
+                        sendNotification('New Message', { body: 'You have new messages waiting.' });
                     }
                     break;
                 }

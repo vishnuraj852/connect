@@ -5,6 +5,7 @@ import { ref, onValue, push, set, remove, serverTimestamp, increment } from 'fir
 import { db } from '../firebase';
 import { useAuthStore } from '../store/useAuthStore';
 import { toneGenerator } from '../audioEffects';
+import { sendNotification } from '../utils/notifications';
 
 interface ChatWindowProps {
   chat: any;
@@ -45,8 +46,8 @@ export default function ChatWindow({ chat, onInitiateCall, onBack }: ChatWindowP
              const lastMsg = loaded[loaded.length - 1];
              if (lastMsg.senderId !== user.uid) {
                  toneGenerator.playMessageNotification();
-                 if (document.hidden && 'Notification' in window && window.Notification.permission === 'granted') {
-                     new window.Notification('New Message', { body: `${otherUser?.name || 'Someone'}: ${lastMsg.text}` });
+                 if (document.hidden) {
+                     sendNotification('New Message', { body: `${otherUser?.name || 'Someone'}: ${lastMsg.text}` });
                  }
              }
          }

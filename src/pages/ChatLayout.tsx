@@ -7,6 +7,7 @@ import Sidebar from '../components/Sidebar';
 import ChatWindow from '../components/ChatWindow';
 import CallWindow from '../components/CallWindow';
 import { toneGenerator } from '../audioEffects';
+import { sendNotification } from '../utils/notifications';
 
 export default function ChatLayout() {
   const { user } = useAuthStore();
@@ -23,8 +24,8 @@ export default function ChatLayout() {
        setIncomingCall(callData);
        if (callData && !activeCall) {
           toneGenerator.startRingTone();
-          if (document.hidden && 'Notification' in window && window.Notification.permission === 'granted') {
-              new window.Notification('Incoming Call', { body: `${callData.callerName} is calling you!` });
+          if (document.hidden) {
+              sendNotification('Incoming Call', { body: `${callData.callerName} is calling you!` });
           }
        } else {
           toneGenerator.stop();
