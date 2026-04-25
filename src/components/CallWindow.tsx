@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Box, IconButton, Typography, CircularProgress, Avatar, Dialog, Button } from '@mui/material';
+import { Box, IconButton, Typography, Avatar, Dialog, Button } from '@mui/material';
 import { CallEnd, Mic, MicOff, Videocam, VideocamOff, Phone } from '@mui/icons-material';
 import { ref, onValue, set, push, remove, onDisconnect, onChildAdded, off } from 'firebase/database';
 import { db } from '../firebase';
@@ -94,7 +94,7 @@ export default function CallWindow({ chatId, isCaller, type, otherUserName, othe
             if (event.track.kind === 'audio') {
                  if (remoteAudioRef.current) {
                      remoteAudioRef.current.srcObject = new MediaStream([event.track]);
-                     remoteAudioRef.current.play().catch(e => setPlayBlocked(true));
+                     remoteAudioRef.current.play().catch(() => setPlayBlocked(true));
                      
                      remoteAudioRef.current.onpause = () => setPlayBlocked(true);
                      remoteAudioRef.current.onplaying = () => setPlayBlocked(false);
@@ -102,7 +102,7 @@ export default function CallWindow({ chatId, isCaller, type, otherUserName, othe
             } else if (event.track.kind === 'video') {
                  if (remoteVideoRef.current) {
                      remoteVideoRef.current.srcObject = new MediaStream([event.track]);
-                     remoteVideoRef.current.play().catch(e => setPlayBlocked(true));
+                     remoteVideoRef.current.play().catch(() => setPlayBlocked(true));
                  }
             }
 
@@ -138,10 +138,10 @@ export default function CallWindow({ chatId, isCaller, type, otherUserName, othe
                
                setTimeout(() => {
                    if (remoteVideoRef.current && remoteVideoRef.current.paused) {
-                        remoteVideoRef.current.play().catch(e => setPlayBlocked(true));
+                        remoteVideoRef.current.play().catch(() => setPlayBlocked(true));
                    }
                    if (remoteAudioRef.current && remoteAudioRef.current.paused) {
-                        remoteAudioRef.current.play().catch(e => setPlayBlocked(true));
+                        remoteAudioRef.current.play().catch(() => setPlayBlocked(true));
                    }
                }, 500);
            }

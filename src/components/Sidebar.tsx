@@ -41,7 +41,7 @@ export default function Sidebar({ onSelectChat, selectedChatId }: { onSelectChat
   const [onlineStatusMap, setOnlineStatusMap] = useState<Record<string, boolean>>({});
 
   const isInitialLoad = useRef(true);
-  const [prevUnreads, setPrevUnreads] = useState<Record<string, number>>({});
+  const [, setPrevUnreads] = useState<Record<string, number>>({});
   const selectedChatRef = useRef(selectedChatId);
   useEffect(() => { selectedChatRef.current = selectedChatId; }, [selectedChatId]);
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Box, Button, Typography, Paper, useTheme, Alert } from '@mui/material';
 import { Google as GoogleIcon } from '@mui/icons-material';
 import { signInWithPopup } from 'firebase/auth';

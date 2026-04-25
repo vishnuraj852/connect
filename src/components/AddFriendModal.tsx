@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Dialog, DialogTitle, DialogContent, TextField, Button, List, ListItem, ListItemAvatar, Avatar, ListItemText, Typography, Box, IconButton } from '@mui/material';
 import { PersonAdd as PersonAddIcon, Check as CheckIcon } from '@mui/icons-material';
-import { ref, query, orderByChild, equalTo, get, set, push, onValue, serverTimestamp } from 'firebase/database';
+import { ref, get, set, push, onValue, serverTimestamp } from 'firebase/database';
 import { db } from '../firebase';
 import { useAuthStore } from '../store/useAuthStore';
 
