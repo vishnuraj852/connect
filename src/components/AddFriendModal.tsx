@@ -119,7 +119,7 @@ export default function AddFriendModal({ open, onClose }: AddFriendModalProps) {
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>Add Friends & Requests</DialogTitle>
       <DialogContent>
-        <Box sx={{ display: 'flex', gap: 1, mt: 1, mb: 2 }}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 1, mt: 1, mb: 2 }}>
            <TextField 
              size="small" 
              fullWidth 
@@ -128,7 +128,7 @@ export default function AddFriendModal({ open, onClose }: AddFriendModalProps) {
              onChange={(e) => setEmailQuery(e.target.value)} 
              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
            />
-           <Button variant="contained" onClick={handleSearch}>Search</Button>
+           <Button variant="contained" onClick={handleSearch} sx={{ whiteSpace: 'nowrap' }}>Search</Button>
         </Box>
         {error && <Typography color="error" variant="body2">{error}</Typography>}
         

@@ -78,6 +78,9 @@ export default function Sidebar({ onSelectChat, selectedChatId }: { onSelectChat
             for (const chatId in newUnreads) {
                 if (chatId !== selectedChatRef.current && newUnreads[chatId] > (prev[chatId] || 0)) {
                     import('../audioEffects').then(m => m.toneGenerator.playMessageNotification());
+                    if (document.hidden && 'Notification' in window && window.Notification.permission === 'granted') {
+                        new window.Notification('New Message', { body: 'You have new messages waiting.' });
+                    }
                     break;
                 }
             }

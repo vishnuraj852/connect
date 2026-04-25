@@ -19,6 +19,10 @@ function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
+        if ('Notification' in window && Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+
         const userRef = ref(db, `users/${currentUser.uid}`);
         const connectedRef = ref(db, '.info/connected');
 

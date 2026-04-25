@@ -19,9 +19,13 @@ export default function ChatLayout() {
   useEffect(() => {
     if (!user) return;
     const unsub = onValue(ref(db, `users/${user.uid}/incomingCall`), snap => {
-       setIncomingCall(snap.val());
-       if (snap.val() && !activeCall) {
+       const callData = snap.val();
+       setIncomingCall(callData);
+       if (callData && !activeCall) {
           toneGenerator.startRingTone();
+          if (document.hidden && 'Notification' in window && window.Notification.permission === 'granted') {
+              new window.Notification('Incoming Call', { body: `${callData.callerName} is calling you!` });
+          }
        } else {
           toneGenerator.stop();
        }
